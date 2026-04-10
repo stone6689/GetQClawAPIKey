@@ -2,6 +2,10 @@
 
 一个本地 Node CLI 工具，用微信扫码登录 QClaw，在终端输出 ASCII 二维码、实时日志，并在回调后打印可直接使用的明文 `apiKey`。
 
+## 前置条件
+
+必须先在 QClaw 客户端里完成账号注册和首次登录；没有注册过账号时，仅靠这个脚本无法直接拿到可用的 `apiKey`。
+
 ## 启动
 
 ```bash
@@ -38,6 +42,14 @@ curl 'https://mmgrcalltoken.3g.qq.com/aizone/v1/chat/completions' \
     "max_tokens": 10000
   }'
 ```
+
+如果是在 OpenClaw 里配置 provider，`baseUrl` 应填写：
+
+```text
+https://mmgrcalltoken.3g.qq.com/aizone/v1
+```
+
+不要写成带 `/chat/completions` 的完整请求地址；OpenClaw 会自行拼接后续路径。
 
 ## 可调用模型
 
