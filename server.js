@@ -402,7 +402,7 @@ function trimQrMatrix(matrix, padding = 1) {
   ];
 }
 
-function renderQrMatrix(matrix) {
+function renderCompactQrMatrix(matrix) {
   const compactMatrix = trimQrMatrix(matrix, 1);
   const lines = [];
 
@@ -429,6 +429,21 @@ function renderQrMatrix(matrix) {
   }
 
   return `\n${lines.join('\n')}\n`;
+}
+
+function renderAsciiQrMatrix(matrix) {
+  const compactMatrix = trimQrMatrix(matrix, 1);
+  const lines = compactMatrix.map((row) =>
+    row.map((cell) => (cell ? '##' : '  ')).join('')
+  );
+  return `\n${lines.join('\n')}\n`;
+}
+
+function renderQrMatrix(matrix) {
+  if (process.platform === 'win32') {
+    return renderAsciiQrMatrix(matrix);
+  }
+  return renderCompactQrMatrix(matrix);
 }
 
 async function printQrCode(uuid) {
